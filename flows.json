@@ -1,0 +1,150 @@
+[
+    {
+        "id": "da93f4a3c1149580",
+        "type": "tab",
+        "label": "uThing::VOC",
+        "disabled": false,
+        "info": "Flow to publish data from *ohmTech* [uThing::VOC](https://docs.ohmtech.io/uThingVOC/quickstart/) USB sensor"
+    },
+    {
+        "id": "1ffc0b8c33acb6d7",
+        "type": "serial-port",
+        "serialport": "/dev/ttyACM1",
+        "serialbaud": "57600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "84209608fb4df51a",
+        "type": "mqtt-broker",
+        "name": "localhost",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b9ab853dd65f98bc",
+        "type": "serial in",
+        "z": "da93f4a3c1149580",
+        "name": "VOC device",
+        "serial": "1ffc0b8c33acb6d7",
+        "x": 190,
+        "y": 500,
+        "wires": [
+            [
+                "e295fe6a7ab20ca7"
+            ]
+        ]
+    },
+    {
+        "id": "87064c3342a4aa74",
+        "type": "mqtt out",
+        "z": "da93f4a3c1149580",
+        "name": "publish to MQTT",
+        "topic": "",
+        "qos": "",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "84209608fb4df51a",
+        "x": 850,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "f0204faff916ff83",
+        "type": "debug",
+        "z": "da93f4a3c1149580",
+        "name": "check data",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f0c7d5c559254c97",
+        "type": "function",
+        "z": "da93f4a3c1149580",
+        "name": "add topic and ts",
+        "func": "// add topic\nmsg.topic = 'voc';\n\n// timestamp\nmsg.payload.time = new Date();\n\n// move port to payload (in case useful)\nmsg.payload.port = msg.port;\ndelete msg.port;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 500,
+        "wires": [
+            [
+                "87064c3342a4aa74",
+                "f0204faff916ff83"
+            ]
+        ]
+    },
+    {
+        "id": "2d407b3275a21cf5",
+        "type": "comment",
+        "z": "da93f4a3c1149580",
+        "name": "note",
+        "info": "Adding this for future flexibility",
+        "x": 495,
+        "y": 540,
+        "wires": [],
+        "icon": "node-red/alert.svg",
+        "l": false
+    },
+    {
+        "id": "e295fe6a7ab20ca7",
+        "type": "json",
+        "z": "da93f4a3c1149580",
+        "name": "convert data",
+        "property": "payload",
+        "action": "obj",
+        "pretty": true,
+        "x": 370,
+        "y": 500,
+        "wires": [
+            [
+                "f0c7d5c559254c97"
+            ]
+        ]
+    }
+]

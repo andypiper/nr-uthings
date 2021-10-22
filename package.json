@@ -1,0 +1,12 @@
+{
+    "name": "NR-uThings",
+    "description": "Node-RED flows for handling data from uThings",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
+}
