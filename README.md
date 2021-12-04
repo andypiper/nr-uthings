@@ -1,9 +1,8 @@
 NR-uThings
 ==========
 
-Node-RED flows for handling data from uThings
+Node-RED flows for handling data from uThing:: devices
 
-### About
+### uThing::VOC
 
-This is your project's README.md file. It helps users understand what your
-project does, how to use it and anything else they may need to know.
+Publish JSON data from [uThing::VOC](https://ohmtech.io/products/uthingvoc/) Air Quality USB device, to an MQTT Topic
