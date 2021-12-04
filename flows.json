@@ -23,7 +23,8 @@
         "bin": "false",
         "out": "char",
         "addchar": "",
-        "responsetimeout": "10000"
+        "responsetimeout": "10000",
+        "info": "USB serial connection to sensor"
     },
     {
         "id": "84209608fb4df51a",
